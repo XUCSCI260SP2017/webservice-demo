@@ -38,5 +38,6 @@ dependencies {
 	runtime('org.springframework.boot:spring-boot-devtools')
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile("org.mockito:mockito-core:2+")
 }
 
