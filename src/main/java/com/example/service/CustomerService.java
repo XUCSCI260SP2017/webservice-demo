@@ -8,4 +8,5 @@ import java.util.List;
 public interface CustomerService {
     void createCustomer(String first, String last);
     List<Customer> findCustomer(String firstName);
+    List<Customer> findAllCustomers();
 }

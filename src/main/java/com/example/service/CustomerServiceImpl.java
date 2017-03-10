@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.dal.CustomerDAO;
+import com.example.dal.CustomerDAOImpl;
 import com.example.domain.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,4 +30,9 @@ public class CustomerServiceImpl implements CustomerService {
     public List<Customer> findCustomer(String firstName) {
         return customerDAO.findCustomersByName(firstName);
     }
+
+    @Override public List<Customer> findAllCustomers() {
+        return customerDAO.findAllCustomers();
+    }
+
 }
