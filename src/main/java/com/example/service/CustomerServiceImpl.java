@@ -3,6 +3,7 @@ package com.example.service;
 import com.example.dal.CustomerDAO;
 import com.example.dal.CustomerDAOImpl;
 import com.example.domain.Customer;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -33,6 +34,11 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override public List<Customer> findAllCustomers() {
         return customerDAO.findAllCustomers();
+    }
+
+    @Override public Customer findCustomerByName(Customer newCustomer) {
+        Optional<Customer> customer = customerDAO.findCustomersByFullName(newCustomer);
+        return customer.orElse(new Customer(-1L,"",""));
     }
 
 }

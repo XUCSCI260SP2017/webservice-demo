@@ -5,8 +5,10 @@ import com.example.service.CustomerService;
 import com.example.service.CustomerServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -32,5 +34,20 @@ public class CustomerController {
         return "showAllCustomers";
     }
 
+    @RequestMapping(value = "/newCustomer", method = RequestMethod.GET)
+    public String newCustomer(Model model) {
+        model.addAttribute("customer", new Customer());
+        return "addCustomer";
+    }
+
+    @RequestMapping(value = "/newCustomer", method = RequestMethod.POST)
+    public String addNewCustomer(@ModelAttribute Customer customer, Model model) {
+
+        customerService.createCustomer(customer.getFirstName(),customer.getLastName());
+        Customer added = customerService.findCustomerByName(customer);
+        model.addAttribute("addedCustomer", added);
+
+        return "newusergreeting";
+    }
 
 }

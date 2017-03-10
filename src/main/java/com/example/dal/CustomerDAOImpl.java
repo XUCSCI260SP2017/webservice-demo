@@ -1,6 +1,7 @@
 package com.example.dal;
 
 import com.example.domain.Customer;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -42,5 +43,16 @@ public class CustomerDAOImpl implements CustomerDAO{
                     rs.getString("first_name"),
                     rs.getString("last_name"))
         );
+    }
+
+    @Override public Optional<Customer> findCustomersByFullName(Customer customer) {
+        Object[] name = {customer.getFirstName(),customer.getLastName()};
+        return jdbcTemplate.query(
+            "SELECT id, first_name, last_name FROM customers WHERE first_name = ? and last_name = ?",
+            name,
+            (rs, rowNum) -> new Customer(rs.getLong("id"),
+                rs.getString("first_name"),
+                rs.getString("last_name"))
+        ).stream().findFirst();
     }
 }
